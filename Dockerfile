@@ -1,4 +1,4 @@
-﻿FROM node:24-alpine AS builder
+FROM node:24-alpine AS builder
 
 RUN apk update && \
     apk add --no-cache git ffmpeg wget curl bash openssl
@@ -57,4 +57,4 @@ ENV DOCKER_ENV=true
 
 EXPOSE 10000
 
-ENTRYPOINT ["/bin/bash", "-c", ". ./Docker/scripts/deploy_database.sh && node -e "process.env.SERVER_PORT='10000';process.env.PORT='10000';process.env.DOCKER_ENV='true';" && npm run start:prod" ]
+ENTRYPOINT ["/bin/bash", "-c", ". ./Docker/scripts/deploy_database.sh && SERVER_PORT=10000 PORT=10000 DOCKER_ENV=true npm run start:prod"]
